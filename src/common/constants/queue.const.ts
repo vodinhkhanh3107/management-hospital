@@ -1,0 +1,28 @@
+export enum QueueStatus {
+  WAITING = 'WAITING',
+  CALLED = 'CALLED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  COMPLETED = 'COMPLETED',
+  SKIPPED = 'SKIPPED',
+  CANCELLED = 'CANCELLED',
+}
+
+export enum QueuePriority {
+  NORMAL = 'NORMAL',
+  PRIORITY = 'PRIORITY',
+}
+
+export enum QueueSource {
+  PATIENT = 'PATIENT',
+  RECEPTIONIST = 'RECEPTIONIST',
+}
+
+export enum QueueEventType {
+  TAKEN = 'TAKEN',
+  CALLED = 'CALLED',
+  RECALLED = 'RECALLED',
+  STARTED = 'STARTED',
+  COMPLETED = 'COMPLETED',
+  SKIPPED = 'SKIPPED',
+  CANCELLED = 'CANCELLED',
+}
