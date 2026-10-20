@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
-import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { AuthModule } from './modules/auth/auth.module.js';
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 
@@ -13,16 +12,19 @@ import { TypeOrmModule } from '@nestjs/typeorm'
       isGlobal: true
     }),
 
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3307,
-      database: 'management_hospital',
-      username: 'username',
-      password: 'your_password',
-      entities: [],
-      synchronize: false,
-      autoLoadEntities: true
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get<string>('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        database: configService.get<string>('DB_DATABASE'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        entities: [],
+        synchronize: false,
+        autoLoadEntities: true
+      })
     }),
 
     AuthModule,
